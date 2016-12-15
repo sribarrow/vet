@@ -1,0 +1,124 @@
+<html>
+
+<head>
+
+<title>Google Map Geolocation</title>
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+<!--
+<script 
+// create google api key 
+
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDk0LQ_HzpQKg0_vxOIJgQJbczfOWHwGVM&libraries=geometry">
+</script>
+-->
+
+
+<script>
+
+/* self defined function */
+
+function getMyLoc1()
+{
+
+
+if (navigator.geolocation) {
+ //navigator.geolocation.getCurrentPosition(success);
+ 
+ 
+ var geo = navigator.geolocation; //Naviagtor's property geolocation returns Geolocation object
+ geo.getCurrentPosition(success); //Pass user defined function as parameter in getCurrentPossition method, optionally pass error fuction
+ 
+} else {
+ error('Geo Location is not supported');
+}
+
+}
+    
+function getHomeLoc()
+{
+
+
+var json = Resources["ContentLoaderFunctions"].LoadJSON({url: "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&components=country:"+country+"|postal_code:"+code);
+
+if (result.status == "OK")
+{
+    var location = {
+        latitude: json.results[0].geometry.location.lat,
+        longitude: json.results[0].geometry.location.lng,
+        elevation: 0
+    };
+    var result = location;
+}
+else
+{
+    logger.info("Could not get location");
+}
+}
+
+
+function success(position) {  // 'getCurrentPosition from the above line is passing results of cordinates to 'position' parameter.
+ 
+var lat = position.coords.latitude;
+var lon = position.coords.longitude;
+ 
+var myCoords = new google.maps.LatLng(lat, lon); // In order to set the cordinates on google map, we are passing our location cordinates to Google api objects i.e. LatLng.
+
+ 
+  var options = { // settings of google map. 
+    zoom: 15,
+    center: myCoords,
+    mapTypeControl: false,
+    navigationControlOptions: {
+    style: google.maps.NavigationControlStyle.SMALL
+    },
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  
+  var mapArea = document.getElementById("mapcontainer"); // get the referene of div container defined in html code.
+  
+  var myMap = new google.maps.Map(mapArea, options); // create the map object with initial settings, to display it in the dive container.
+
+  
+
+  
+  var marker = new google.maps.Marker({  // creating a new Market object and setting the position of marker on the map.
+      position: myCoords,
+      map: myMap, // Helping to identify target map for the marker.
+      title:"You are here!"
+  });
+  
+  //alert(marker);
+  
+}
+
+function unSuccess(errorMessage) {
+alert("Couldn't not find the requested inforation due to : " + errorMessage);
+}
+
+</script>
+
+</head>
+
+
+<body>
+
+    <button onclick="getMyLoc1();">Click me </button>
+
+My location
+
+<br> <br>
+
+<button onclick="getHomeLoc();">Click Me </button>
+    
+    My Home
+    <br> <br>
+<div id="mapcontainer" style="height: 400px;width:500px">
+
+</div>
+
+
+
+</body>
+
+<html>

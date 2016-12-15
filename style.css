@@ -1,0 +1,94 @@
+/*  GLOBALS */
+ body{
+                background-color: black;
+                color: white;
+            }
+
+/*  IDS */
+
+#container{
+    width:60%;   
+    margin: 20px auto;
+    overflow:auto;
+    padding:25px;
+}
+
+#site-header{
+    background-color: #006571;
+}
+
+#logo{   
+    text-align: center;
+}
+
+#phone{
+    padding-top:55px;
+    font-size:2em;
+}
+
+
+#page-header{
+ 
+ height:200px;
+ text-align: center;
+ padding:20px;
+}
+
+#page-content{
+    background: #00ff3b;
+    min-height: 100px;
+}
+
+/*Google maps*/
+#map {
+height: 400px;
+width: 100%;
+}
+ 
+
+/*  CLASSES */
+
+.head{
+    float:left;
+}
+
+.float-left{
+    float:left;
+}
+
+.float-right{
+    float:right;
+}
+
+.clear-float{
+    clear:both;
+}
+
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+      width: 70%;
+      margin: auto;
+    
+}
+
+#logoinfo {
+    color:black;
+    font-size:1.2em;
+    text-align:center;
+    padding-top: 12%;
+}
+
+#vet-banner {
+    text-align: center;
+    padding: 20px 0 0 20px;
+}
+
+#combo {
+    color:black;
+}
+
+#welcome {
+    text-align: center;
+}
+
+

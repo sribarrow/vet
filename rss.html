@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> HTML RSS Viewer </TITLE>
+<script>
+  var rssDoc = new ActiveXObject("MSXML2.DOMDocument.3.0");
+  rssDoc.onreadystatechange = popData;
+
+  function displayRSS(path){
+ mainTitle.href = "";
+ mainTitle.innerHTML = "";
+ items.innerHTML = "";
+
+ rssDoc.load(path);
+  }
+
+  function popData(){
+    if(rssDoc.readyState!=4)
+  return;
+
+ // Title
+ mainTitle.href = rssDoc.selectSingleNode("/rss/channel/link").text;
+ mainTitle.innerHTML = rssDoc.selectSingleNode("/rss/channel/title").text;
+
+ // Items
+    var rssItems = rssDoc.selectNodes("/rss/channel/item");
+ for(var i=0;i<rssItems.length;i++)
+ {
+  var item='<li><a href="' + rssItems[i].selectSingleNode("./link").text + '" class="itemTitle">';
+  item+=rssItems[i].selectSingleNode("./title").text
+     item+='</a><br/><div class=item>';
+  item+=rssItems[i].selectSingleNode("./description").text;
+  item+='</div></li>';
+  items.innerHTML+=item;
+ }
+
+  }
+</script>
+ <style>
+ .title{
+  font-family: verdana;
+  font-weight: bold;
+ }
+ .itemTitle{
+  font-family: verdana;
+  font-size: 10pt;
+ }
+ .item{
+  font-family: verdana;
+  font-size: 10pt;
+ }
+ </style>
+</HEAD>
+
+<BODY>
+
+<form>
+<input id="rssPath" value="rss.xml">&nbsp;<button onclick="displayRSS(rssPath.value)">Ok</button>
+</form>
+ <a id="mainTitle" href="" class="title"></a><br>
+ <div>
+  <ul>
+   <span id="items"></span>
+  </ul>
+ </div>
+</BODY>
+</HTML>
